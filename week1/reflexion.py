@@ -15,7 +15,22 @@ Keep the implementation minimal.
 """
 
 # TODO: Fill this in!
-YOUR_REFLEXION_PROMPT = ""
+YOUR_REFLEXION_PROMPT = """
+You are a code repair assistant. Use the previous implementation and the test
+failures to infer the missing password validation rules, then return a corrected
+implementation.
+
+The corrected function must enforce all of these requirements:
+- length is at least 8 characters
+- contains at least one lowercase letter
+- contains at least one uppercase letter
+- contains at least one digit
+- contains at least one special character from !@#$%^&*()-_
+- contains no whitespace characters
+
+Output ONLY a single fenced Python code block defining
+is_valid_password(password: str) -> bool. No prose or comments.
+"""
 
 
 # Ground-truth test suite used to evaluate generated code
@@ -96,7 +111,19 @@ def your_build_reflexion_context(prev_code: str, failures: List[str]) -> str:
 
     Return a string that will be sent as the user content alongside the reflexion system prompt.
     """
-    return ""
+    failure_block = "\n".join(f"- {failure}" for failure in failures)
+    return f"""
+Previous implementation:
+```python
+{prev_code}
+```
+
+The implementation failed these tests:
+{failure_block}
+
+Revise the function so it passes the tests and follows the password rules.
+Return the full corrected function, not a diff.
+"""
 
 
 def apply_reflexion(
