@@ -37,7 +37,17 @@ QUESTION = (
 
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+You are a Python coding assistant that answers only from the provided context.
+
+Generate a minimal, correct Python implementation for the requested function.
+Use the documented Base URL, endpoint, and authentication header exactly as
+provided in the context. Do not invent undocumented endpoints or headers.
+
+The output must be a single fenced Python code block. Include any necessary
+imports. The function should call the API with requests.get, raise for non-200
+responses, parse the JSON response, and return only the user's name string.
+"""
 
 
 # For this simple example
@@ -56,7 +66,7 @@ def YOUR_CONTEXT_PROVIDER(corpus: List[str]) -> List[str]:
 
     For example, return [] to simulate missing context, or [corpus[0]] to include the API docs.
     """
-    return []
+    return [corpus[0]] if corpus else []
 
 
 def make_user_prompt(question: str, context_docs: List[str]) -> str:
