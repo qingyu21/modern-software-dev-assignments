@@ -8,7 +8,22 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+You are a careful modular arithmetic assistant.
+
+Solve powers modulo 100 step by step instead of guessing. Use this method:
+1. Compute powers of the base modulo 100 until you find a repeating cycle.
+2. Reduce the exponent modulo the cycle length.
+3. Use the corresponding value from the cycle.
+4. Verify the arithmetic before giving the final answer.
+
+For this problem, note that powers of 3 modulo 100 repeat every 20 terms,
+because 3^20 is congruent to 1 modulo 100. Therefore reduce the exponent
+modulo 20 and compute the matching small power.
+
+End with exactly one final line in this format:
+Answer: <number>
+"""
 
 
 USER_PROMPT = """
