@@ -9,7 +9,20 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in! Try to get as close to 100% correctness across all runs as possible.
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+You are a careful arithmetic word-problem solver.
+
+Solve the problem step by step and verify the answer using two equivalent views:
+1. Locate each stop as a mile marker from the start.
+2. Subtract the first stop's mile marker from the second stop's mile marker.
+
+Pay special attention to phrases like "before the end": convert them to a mile
+marker from the start before subtracting. Do not treat "15 miles before the end"
+as the distance between the two stops.
+
+End with exactly one final line in this format:
+Answer: <number>
+"""
 
 USER_PROMPT = """
 Solve this problem, then give the final answer on the last line as "Answer: <number>".
